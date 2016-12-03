@@ -9,7 +9,7 @@
         "max-len": [2, 120, 4],
         "no-trailing-spaces": [2, { "skipBlankLines": true }],
         "no-unused-vars": [2, {"args": "after-used", "varsIgnorePattern": "^_"}],
-        "quotes": [2, "single"],
+        "quotes": [0],
         "semi": [2, "always"],
         "space-before-function-paren": [2, "always"],
         "strict": [2, "never"],
