@@ -1,19 +1,18 @@
 <head>
   <title>My A-Frame Scene</title>
+  <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-firebase-component/master/dist/aframe-firebase-component.min.js"></script>
   <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.0.3/dist/aframe-physics-system.min.js"></script>
 </head>
 
 <body>
-  <!---<a-scene physics-world="gravity: 0 0 0">
-    <a-entity id = "sphere" physics-body="boundingBox: 1 1 1; mass: 5; velocity: 0.2 0 0"
-              geometry="primitive: sphere" material="color: rgb(50,200,255);metalness:0.5"></a-entity>
--->
 
-<a-scene physics="gravity:-1; debug:true">
+<a-scene physics="gravity:0">
 
-<!-- Camera
-<a-entity camera universal-controls kinematic-body></a-entity>-->
+<!-- Camera-->
+<a-entity id="camera1" camera universal-controls kinematic-body position="1 1 1"></a-entity>
+<a-entity id="camera2" camera universal-controls kinematic-body position="0 1 0"></a-entity>
 
 <!-- Floor
 <a-grid static-body></a-grid>-->
@@ -32,7 +31,7 @@
                       material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
 
 
-                      <a-box id="idunnoman" dynamic-body position="4 2 2" width="1" height="1" depth="1"></a-box>
+                      <a-box id="idunnoman" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.1"></a-box>
 
 
 
@@ -40,13 +39,16 @@
 
   <script>
 
-  var sceneEl = document.querySelector('a-scene');
 
- var ball = sceneEl.querySelector('#idunnoman');
- ball.body.applyImpulse(
-  /* impulse */        new CANNON.Vec3(0, 3, -1),
-  /* world position */ new CANNON.Vec3().copy(ball.getComputedAttribute('position'))
-);
+    var ball = document.querySelector('#idunnoman');
+    ball.play();
+    ball.addEventListener('body-loaded', function (e) {
+        var bodyPos = new CANNON.Vec3().copy(ball.getComputedAttribute('position'));
+         ball.body.applyImpulse(
+          /* impulse */        new CANNON.Vec3(0, 0, -5),
+          /* world position */ new CANNON.Vec3(bodyPos.x + 0.05, bodyPos.y, bodyPos.z)
+        );
+    });
   /*var scene = document.querySelector('a-scene');
   scene.addEventListener('loaded', function () {
        var sphere = document.getElementById('sphere');
