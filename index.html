@@ -1,0 +1,41 @@
+<head>
+  <title>My A-Frame Scene</title>
+  <script src="https://aframe.io/releases/0.2.0/aframe.min.js"></script>
+  <script src="https://github.com/ngokevin/aframe-physics-components/blob/master/dist/aframe-physics-components.min.js"></script>
+  <script src="../build.js"></script>
+</head>
+
+<body>
+  <a-scene physics-world="gravity: 0 0 0">
+    <a-entity id = "sphere" physics-body="boundingBox: 1 1 1; mass: 5; velocity: 0.2 0 0"
+              geometry="primitive: sphere" material="color: rgb(50,200,255);metalness:0.5"></a-entity>
+              <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+
+              <a-assets>
+                <img src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" id="grid" crossorigin="anonymous">
+                <img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />//New picture?
+              </a-assets>
+                <a-entity position="0 -1 0"
+                      geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+                      material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+
+
+
+  </a-scene>
+
+  <script>
+
+  var scene = document.querySelector('a-scene');
+  scene.addEventListener('loaded', function () {
+       var sphere = document.getElementById('sphere');
+
+         var impulse = { x: 50, y: 2, z: 5 };
+         var point = { x: 0, y: -1, z: 0 };
+         sphere.components['physics-body'].applyImpulse(impulse, point);
+
+});
+
+  </script>
+
+
+</body>
