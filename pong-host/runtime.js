@@ -4,7 +4,7 @@ var config = {
     authDomain: "forget-the-ping.firebaseapp.com",
     databaseURL: "https://forget-the-ping.firebaseio.com",
     storageBucket: "",
-    messagingSenderId: "845524760718"
+    messagingSenderId: "845524760719"
 };
 firebase.initializeApp(config);
 
@@ -19,12 +19,12 @@ Leap.loop(function (frame){
             detector.innerText = "READY TO PLAY";
         }
         database.ref("/hand/1").set({
-            x: frame.hands[0].palmPosition[0],
+            x: frame.hands[0].palmPosition[2],
             y: frame.hands[0].palmPosition[1]
         });
 
         database.ref("/hand/2").set({
-            x: frame.hands[1].palmPosition[0],
+            x: frame.hands[1].palmPosition[2],
             y: frame.hands[1].palmPosition[1]
         });
     } else {
