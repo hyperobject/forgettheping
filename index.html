@@ -32,20 +32,23 @@
                       material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
 
 
-                      <a-box id="idunnoman" dynamic-body position="4 2 2" width="1" height="1" depth="1"></a-box>
+                      <a-box id="idunnoman" dynamic-body position="0 2 -4" width="1" height="1" depth="1"></a-box>
 
 
 
   </a-scene>
 
   <script>
-  var sceneEl = document.querySelector('a-scene');
+    var scene = document.querySelector('a-scene');
 
- var ball = sceneEl.querySelector('#idunnoman');
- ball.body.applyImpulse(
-  /* impulse */        new CANNON.Vec3(0, 3, -1),
-  /* world position */ new CANNON.Vec3().copy(ball.getComputedAttribute('position'))
-);
+    var ball = document.querySelector('#idunnoman');
+    ball.play();
+    ball.body.addEventListener('loaded', function (e) {
+         ball.body.applyImpulse(
+          /* impulse */        new CANNON.Vec3(0, 3, -5),
+          /* world position */ new CANNON.Vec3().copy(ball.getComputedAttribute('position'))
+        );
+    });
   /*var scene = document.querySelector('a-scene');
   scene.addEventListener('loaded', function () {
        var sphere = document.getElementById('sphere');
