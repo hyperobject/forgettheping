@@ -1,31 +1,52 @@
 <head>
   <title>My A-Frame Scene</title>
-  <script src="https://aframe.io/releases/0.2.0/aframe.min.js"></script>
-  <script src="https://github.com/ngokevin/aframe-physics-components/blob/master/dist/aframe-physics-components.min.js"></script>
-  <script src="../build.js"></script>
+  <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+  <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.0.3/dist/aframe-physics-system.min.js"></script>
 </head>
 
 <body>
-  <a-scene physics-world="gravity: 0 0 0">
+  <!---<a-scene physics-world="gravity: 0 0 0">
     <a-entity id = "sphere" physics-body="boundingBox: 1 1 1; mass: 5; velocity: 0.2 0 0"
               geometry="primitive: sphere" material="color: rgb(50,200,255);metalness:0.5"></a-entity>
+-->
+
+<a-scene physics="gravity:-1; debug:true">
+
+<!-- Camera
+<a-entity camera universal-controls kinematic-body></a-entity>-->
+
+<!-- Floor
+<a-grid static-body></a-grid>-->
+
+<!-- Immovable box
+<a-box static-body position="0 0.5 -5" shape:box width="3" height="1" depth="1"></a-box>
+-->
+<!-- Dynamic box-->
               <a-sky src="#sky" rotation="0 -90 0"></a-sky>
 
               <a-assets>
                 <img src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" id="grid" crossorigin="anonymous">
                 <img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />//New picture?
               </a-assets>
-                <a-entity position="0 -1 0"
-                      geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
-                      material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+                <a-plane static-body position="0 -1 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+                      material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+
+
+                      <a-box id="idunnoman" dynamic-body position="4 2 2" width="1" height="1" depth="1"></a-box>
 
 
 
   </a-scene>
 
   <script>
+  var sceneEl = document.querySelector('a-scene');
 
-  var scene = document.querySelector('a-scene');
+ var ball = sceneEl.querySelector('#idunnoman');
+ ball.body.applyImpulse(
+  /* impulse */        new CANNON.Vec3(0, 3, -1),
+  /* world position */ new CANNON.Vec3().copy(ball.getComputedAttribute('position'))
+);
+  /*var scene = document.querySelector('a-scene');
   scene.addEventListener('loaded', function () {
        var sphere = document.getElementById('sphere');
 
@@ -34,6 +55,8 @@
          sphere.components['physics-body'].applyImpulse(impulse, point);
 
 });
+*/
+
 
   </script>
 
