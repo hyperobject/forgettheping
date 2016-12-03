@@ -2,6 +2,7 @@
   <title>My A-Frame Scene</title>
   <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.0.3/dist/aframe-physics-system.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-firebase-component/master/dist/aframe-firebase-component.min.js"></script>
 </head>
 
 <body>
@@ -10,7 +11,14 @@
               geometry="primitive: sphere" material="color: rgb(50,200,255);metalness:0.5"></a-entity>
 -->
 
-<a-scene physics="gravity:0">
+<a-scene physics="gravity:0; restitution:1; friction:0"
+         firebase="
+            apiKey: AIzaSyAA7jIUcCyjoscEXiu0gngBxtRMQO7lguc;
+            authDomain: forget-the-ping.firebaseapp.com;
+            databaseURL: https://forget-the-ping.firebaseio.com;
+            storageBucket: '';
+            messagingSenderId: 845524760718;
+         ">
 
 <!-- Camera
 <a-entity camera universal-controls kinematic-body></a-entity>-->
@@ -32,7 +40,9 @@
                       material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
 
 
-                      <a-box id="idunnoman" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.1"></a-box>
+                      <a-box id="idunnoman" color="magenta" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.3"></a-box>
+                      <a-box id="hand1" static-body position="0 1 -6" width="1.2" height="0.3" depth="0.05"></a-box>
+                      <a-box id="hand2" static-body position="0 1 -2" width="1.2" height="0.3" depth="0.05"></a-box>
 
 
 
@@ -46,10 +56,23 @@
     ball.addEventListener('body-loaded', function (e) {
         var bodyPos = new CANNON.Vec3().copy(ball.getComputedAttribute('position'));
          ball.body.applyImpulse(
-          /* impulse */        new CANNON.Vec3(0, 0, -5),
-          /* world position */ new CANNON.Vec3(bodyPos.x + 0.05, bodyPos.y, bodyPos.z)
-        );
+          /* impulse */        new CANNON.Vec3(Math.random(), Math.random(), -10),
+          /* world position */ new CANNON.Vec3(bodyPos.x + 0, bodyPos.y, bodyPos.z)
+      );
     });
+
+    var hand1 = document.querySelector('#hand1');
+    var hand2 = document.querySelector('#hand2');
+
+    function paddleImpulseHandler(e) {
+        e.detail.body.applyImpulse(new CANNON.Vec3().copy(e.detail.contact.ni).scale(1.2), new CANNON.Vec3().copy(e.detail.contact.ri));
+    }
+
+    hand1.addEventListener('collide', paddleImpulseHandler);
+    hand2.addEventListener('collide', paddleImpulseHandler);
+
+
+
   /*var scene = document.querySelector('a-scene');
   scene.addEventListener('loaded', function () {
        var sphere = document.getElementById('sphere');
