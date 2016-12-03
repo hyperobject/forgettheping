@@ -13,7 +13,7 @@ var detector;
 document.addEventListener("DOMContentLoaded", function (){
     detector = document.querySelector("#player-detect");
 });
-Leap.loop(function (frame){
+Leap.loop({background: true}, function (frame){
     if (frame.hands.length == 2) {
         if (detector) {
             detector.innerText = "READY TO PLAY";
