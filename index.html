@@ -37,8 +37,17 @@
               </a-assets>
                 <a-plane static-body position="0 -1 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
                       material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                <a-plane static-body position="0 5 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+                      material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
 
-
+                      <a-plane static-body position="5 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 -90 0"
+                            material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                            <a-plane static-body position="3 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 -90 0"
+                                  material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                                  <a-plane static-body position="0 0 -10" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 0 90"
+                                        material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                                        <a-plane static-body position="0 0 -3" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 0 90"
+                                              material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
                       <a-box id="idunnoman" color="magenta" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.3"></a-box>
                       <a-box id="hand1" static-body position="0 1 -6" width="1.2" height="0.3" depth="0.05"></a-box>
                       <a-box id="hand2" static-body position="0 1 -2" width="1.2" height="0.3" depth="0.05"></a-box>
