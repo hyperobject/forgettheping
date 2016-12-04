@@ -1,13 +1,15 @@
 <head>
   <title>My A-Frame Scene</title>
-  <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
-  <script src="https://rawgit.com/ngokevin/aframe-firebase-component/master/dist/aframe-firebase-component.min.js"></script>
   <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.0.3/dist/aframe-physics-system.min.js"></script>
   <script src="https://rawgit.com/ngokevin/aframe-firebase-component/master/dist/aframe-firebase-component.min.js"></script>
 </head>
 
 <body>
+  <!---<a-scene physics-world="gravity: 0 0 0">
+    <a-entity id = "sphere" physics-body="boundingBox: 1 1 1; mass: 5; velocity: 0.2 0 0"
+              geometry="primitive: sphere" material="color: rgb(50,200,255);metalness:0.5"></a-entity>
+-->
 
 <a-scene physics="gravity:0; restitution:1; friction:0"
          firebase="
@@ -18,9 +20,8 @@
             messagingSenderId: 845524760718;
          ">
 
-<!-- Camera-->
-<a-entity id="camera1" camera universal-controls kinematic-body position="1 1 1"></a-entity>
-<a-entity id="camera2" camera universal-controls kinematic-body position="0 1 0"></a-entity>
+<!-- Camera
+<a-entity camera universal-controls kinematic-body></a-entity>-->
 
 <!-- Floor
 <a-grid static-body></a-grid>-->
@@ -37,18 +38,9 @@
               </a-assets>
                 <a-plane static-body position="0 -1 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
                       material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
-                <a-plane static-body position="0 5 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
-                      material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
 
-                      <a-plane static-body position="5 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 -90 0"
-                            material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
-                            <a-plane static-body position="3 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 -90 0"
-                                  material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
-                                  <a-plane static-body position="0 0 -10" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 0 90"
-                                        material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
-                                        <a-plane static-body position="0 0 -3" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 0 90"
-                                              material="src: #grid; repeat: 10000 10000; transparent:true; metalness:0.5; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
-                      <a-box id="idunnoman" color="magenta" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.3" firebase-broadcast="components: position, rotation"></a-box>
+
+                      <a-box id="idunnoman" color="magenta" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.3" firebase-broadcast="components: material, geometry, position, rotation"></a-box>
                       <a-box id="hand1" static-body position="0 1 -6" width="1.2" height="0.3" depth="0.05"></a-box>
                       <a-box id="hand2" static-body position="0 1 -2" width="1.2" height="0.3" depth="0.05"></a-box>
 
@@ -57,8 +49,8 @@
   </a-scene>
 
   <script>
-
-
+    var scene = document.querySelector('a-scene');
+    var ballRef = document.querySelector('a-scene').systems.firebase.firebase.database().ref("/ball");
     var ball = document.querySelector('#idunnoman');
     ball.play();
     ball.addEventListener('body-loaded', function (e) {
@@ -84,6 +76,8 @@
 
     function paddleImpulseHandler(e) {
         e.detail.body.applyImpulse(new CANNON.Vec3().copy(e.detail.contact.ni).scale(1.2), new CANNON.Vec3().copy(e.detail.contact.ri));
+        ballRef.set({})
+
     }
 
     hand1.addEventListener('collide', paddleImpulseHandler);
