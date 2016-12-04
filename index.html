@@ -68,7 +68,15 @@
     var scene = document.querySelector('a-scene');
     var ballRef = document.querySelector('a-scene').systems.firebase.firebase.database().ref("/ball");
     var ball = document.querySelector('#idunnoman');
-    ball.play();
+    var fun = [
+        "magenta",
+        "red",
+        "blue",
+        "lime"
+    ]
+    ball.addEventListener('loaded', function (e) {
+        ball.setAttribute('color', fun[Math.floor(Math.random() * 4)])
+    });
     ball.addEventListener('body-loaded', function (e) {
         var bodyPos = new CANNON.Vec3().copy(ball.getComputedAttribute('position'));
          ball.body.applyImpulse(
