@@ -6,11 +6,6 @@
 </head>
 
 <body>
-  <!---<a-scene physics-world="gravity: 0 0 0">
-    <a-entity id = "sphere" physics-body="boundingBox: 1 1 1; mass: 5; velocity: 0.2 0 0"
-              geometry="primitive: sphere" material="color: rgb(50,200,255);metalness:0.5"></a-entity>
--->
-
 <a-scene physics="gravity:0; restitution:1; friction:0"
          firebase="
             apiKey: AIzaSyAA7jIUcCyjoscEXiu0gngBxtRMQO7lguc;
@@ -22,14 +17,6 @@
 
 <!-- Camera -->
 <a-entity id="camera" camera wasd-controls look-controls kinematic-body position="-4 1 -4" rotation="0 -90 0"></a-entity>
-
-<!-- Floor
-<a-grid static-body></a-grid>-->
-
-<!-- Immovable box
-<a-box static-body position="0 0.5 -5" shape:box width="3" height="1" depth="1"></a-box>
--->
-<!-- Dynamic box-->
               <a-sky src="#sky" rotation="0 -90 0"></a-sky>
 
               <a-assets>
@@ -63,79 +50,5 @@
 
 
   </a-scene>
-
-  <script>
-  //position, rotation, velocity, quaternion
-    var scene = document.querySelector('a-scene');
-    var ballRef = document.querySelector('a-scene').systems.firebase.firebase.database().ref("/ball");
-    var ball = document.querySelector('#idunnoman');
-    var fun = [
-        "magenta",
-        "red",
-        "blue",
-        "lime"
-    ]
-    ball.addEventListener('loaded', function (e) {
-        ball.setAttribute('color', fun[Math.floor(Math.random() * 4)])
-    });
-    ball.addEventListener('body-loaded', function (e) {
-        var bodyPos = new CANNON.Vec3().copy(ball.getComputedAttribute('position'));
-         ball.body.applyImpulse(
-          /* impulse */        new CANNON.Vec3(Math.random(), Math.random(), -10),
-          /* world position */ new CANNON.Vec3(bodyPos.x + 0, bodyPos.y, bodyPos.z)
-      );
-    //   ball.setAttribute('firebase-broadcast', "components: material, geometry, dynamic-body|body|angularVelocity");
-  });
-
-    var hand1 = document.querySelector('#hand1');
-    var hand2 = document.querySelector('#hand2');
-    var OK1 = false;
-    var OK2 = false;
-
-    hand2.addEventListener('body-loaded', function (e) {
-        OK2 = true;
-    });
-
-    hand1.addEventListener('body-loaded', function (e) {
-        OK1 = true;
-    });
-
-    function paddleImpulseHandler(e) {
-        e.detail.body.applyImpulse(new CANNON.Vec3().copy(e.detail.contact.ni).scale(1.2), new CANNON.Vec3().copy(e.detail.contact.ri));
-        ballRef.set({})
-
-    }
-
-    hand1.addEventListener('collide', paddleImpulseHandler);
-    hand2.addEventListener('collide', paddleImpulseHandler);
-
-
-
-  /*var scene = document.querySelector('a-scene');
-  scene.addEventListener('loaded', function () {
-       var sphere = document.getElementById('sphere');
-
-         var impulse = { x: 50, y: 2, z: 5 };
-         var point = { x: 0, y: -1, z: 0 };
-         sphere.components['physics-body'].applyImpulse(impulse, point);
-
-});
-*/
-
-    //var firebase = document.querySelector('a-scene').systems.firebase.firebase;
-    var hand1Ref = document.querySelector('a-scene').systems.firebase.firebase.database().ref('/hand/1');
-    var hand2Ref = document.querySelector('a-scene').systems.firebase.firebase.database().ref('/hand/2');
-    hand1Ref.on('value', function(snapshot) {
-        if (OK1) {
-            hand1.setAttribute('position', { x: snapshot.child('x').val()/200, y: snapshot.child('y').val()/200, z: -6 });
-        }
-    });
-    hand2Ref.on('value', function(snapshot) {
-        if (OK2){
-            hand2.setAttribute('position', { x: snapshot.child('x').val()/200, y: snapshot.child('y').val()/200, z: -2 });
-        }
-    });
-  </script>
-
-
+  <script src="logic.js"></script>
 </body>
