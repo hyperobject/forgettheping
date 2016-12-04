@@ -4,7 +4,7 @@
   <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.0.3/dist/aframe-physics-system.min.js"></script>
   <script src="https://rawgit.com/ngokevin/aframe-firebase-component/master/dist/aframe-firebase-component.min.js"></script>
   <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.min.js"></script>
-  <script src="alien.font.js"></script>
+  <script src="SF Alien Encounters_Regular.js"></script>
 </head>
 
 <body>
@@ -22,6 +22,7 @@
               <a-sky src="#sky" rotation="0 -90 0"></a-sky>
 
               <a-assets>
+                  <!-- <a-mixin id="font" text="font: 'SF Alien Encounters'"></a-mixin> -->
                 <img src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" id="grid" crossorigin="anonymous">
                 <img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />//New picture?
               </a-assets>
@@ -48,6 +49,9 @@
                       <a-box id="idunnoman" color="magenta" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.3" firebase-broadcast="components: material, geometry, position, rotation, velocity, quaternion"></a-box>
                       <a-box id="hand1" static-body position="0 1 -6" width="1.2" height="0.3" depth="0.05"></a-box>
                       <a-box id="hand2" static-body position="0 1 -2" width="1.2" height="0.3" depth="0.05"></a-box>
+                      <a-entity id="score1" text="text: 0" position="0 2 -6.1" material="color: lime" rotation="0 -90 0"></a-entity>
+                      <a-entity id="score2" text="text: 0" position="0 2 -2.2" material="color: lime" rotation="0 -90 0"></a-entity>
+
   </a-scene>
   <script src="logic.js"></script>
 </body>
