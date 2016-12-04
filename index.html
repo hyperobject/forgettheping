@@ -38,22 +38,22 @@
               </a-assets>
               <!--Floor-->
                 <a-plane static-body position="0 -1 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
-                      material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                      material="src: #grid; repeat: 10000 10000; side:double; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
                       <!--Unknown, probably top-->
-                      <a-plane static-body position="0 5 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
-                            material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                      <a-plane static-body position="0 5 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="90 0 0"
+                            material="src: #grid; repeat: 10000 10000; side:double; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
                             <!--Right-->
                             <a-plane static-body position="5 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 -90 0"
-                                  material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
-                                  <!--Unknown, left?-->
-                                  <a-plane static-body position="13 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 -90 0"
+                                  material="src: #grid; repeat: 10000 10000; side:double; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                                  <!--Left-->
+                                  <a-plane static-body position="-5 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 90 0"
                                         material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
                                         <!--Front-->
                                         <a-plane static-body position="0 0 -10" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 0 -90"
-                                              material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                                              material="src: #grid; repeat: 10000 10000; side:double; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
                                               <!--Back-->
-                                              <a-plane static-body position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 0 -90"
-                                                    material="src: #grid; repeat: 10000 10000; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
+                                              <a-plane static-body position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="0 0 90"
+                                                    material="src: #grid; repeat: 10000 10000; side:double; transparent: true;metalness:0.2; roughness: 0.4; sphericalEnvMap: #sky;"></a-plane>
 
 
                       <a-box id="idunnoman" color="magenta" dynamic-body position="0 1 -4" width="0.3" height="0.3" depth="0.3" firebase-broadcast="components: material, geometry, position, rotation, velocity, quaternion"></a-box>
