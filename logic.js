@@ -1,12 +1,15 @@
 var scene = document.querySelector('a-scene');
 var ballRef = document.querySelector('a-scene').systems.firebase.firebase.database().ref("/ball");
 var ball = document.querySelector('#idunnoman');
+var score1 = 0;
+var score2 = 0;
 var fun = [
   "magenta",
   "red",
   "blue",
   "lime"
 ]
+var lastCollidedWith = "";
 ball.addEventListener('loaded', function (e) {
   ball.setAttribute('color', fun[Math.floor(Math.random() * 4)])
 });
@@ -15,11 +18,28 @@ ball.addEventListener('body-loaded', function (e) {
    ball.body.applyImpulse(
     /* impulse */        new CANNON.Vec3(Math.random(), Math.random(), -10),
     /* world position */ new CANNON.Vec3(bodyPos.x + 0, bodyPos.y, bodyPos.z)
-);
+    );
+});
+ball.addEventListener('collide', function (e) {
+    if (e.detail.body.el.id != lastCollidedWith){
+        if (e.detail.body.el.id == "hand1") {
+            score1 += 1;
+        }
+
+        if (e.detail.body.el.id == "hand2") {
+            score2 += 1;
+        }
+
+        document.querySelector('#score1').setAttribute('text', 'text: ' + score1.toString());
+        document.querySelector('#score2').setAttribute('text', 'text: ' + score2.toString());
+        lastCollidedWith = e.detail.body.el.id;
+    }
+
 });
 
 var hand1 = document.querySelector('#hand1');
 var hand2 = document.querySelector('#hand2');
+
 var OK1 = false;
 var OK2 = false;
 
@@ -33,9 +53,8 @@ hand1.addEventListener('body-loaded', function (e) {
 
 function paddleImpulseHandler(e) {
   e.detail.body.applyImpulse(new CANNON.Vec3().copy(e.detail.contact.ni).scale(1.2), new CANNON.Vec3().copy(e.detail.contact.ri));
-  ballRef.set({})
-
 }
+
 
 hand1.addEventListener('collide', paddleImpulseHandler);
 hand2.addEventListener('collide', paddleImpulseHandler);
