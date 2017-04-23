@@ -1,11 +1,5 @@
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyAA7jIUcCyjoscEXiu0gngBxtRMQO7lguc",
-    authDomain: "forget-the-ping.firebaseapp.com",
-    databaseURL: "https://forget-the-ping.firebaseio.com",
-    storageBucket: "",
-    messagingSenderId: "845524760719"
-};
+// config here
 firebase.initializeApp(config);
 
 var database = firebase.database();
